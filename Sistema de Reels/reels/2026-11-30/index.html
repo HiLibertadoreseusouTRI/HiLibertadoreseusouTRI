@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ground: #0e1116;
+        --ink: #f6f3ee;
+        --accent: #ff5a36;
+        --muted: #8f99a6;
+        --line: #2a313b;
+        --font-display: "Inter";
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        margin: 0; width: 1080px; height: 1920px; overflow: hidden;
+        background: var(--ground);
+      }
+      #root { position: relative; width: 100%; height: 100%; font-family: var(--font-display); }
+
+      /* Background glow drifts for the whole film. */
+      #bg { position: absolute; inset: 0; }
+      #bg-disc {
+        position: absolute; left: 90px; top: 380px; width: 900px; height: 900px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 90, 54, 0.22) 0%, rgba(255, 90, 54, 0) 68%);
+      }
+
+      /* Every scene lives in the same safe box. */
+      .scene {
+        position: absolute; left: 150px; width: 740px; top: 340px; height: 860px;
+        display: flex; flex-direction: column; justify-content: center; gap: 28px;
+        color: var(--ink);
+      }
+      .big { font-size: 92px; font-weight: 900; line-height: 1.02; letter-spacing: -0.035em; }
+      .mid { font-size: 64px; font-weight: 900; line-height: 1.08; letter-spacing: -0.03em; }
+      .small { font-size: 40px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+      .acc { color: var(--accent); }
+
+      #s1-mark { display: block; height: 14px; width: 330px; border-radius: 7px; background: var(--accent); transform-origin: left center; }
+
+      .item { display: flex; align-items: center; gap: 26px; font-size: 58px; font-weight: 700; }
+      .box { width: 46px; height: 46px; border: 5px solid var(--muted); border-radius: 10px; flex: none; }
+
+      .bars { display: flex; flex-direction: column; gap: 18px; margin-top: 18px; }
+      .bar { height: 22px; border-radius: 11px; background: var(--line); overflow: hidden; }
+      .bar-fill { height: 100%; width: 100%; background: var(--muted); transform-origin: left center; }
+
+      #s5-count { font-size: 190px; font-weight: 900; letter-spacing: -0.05em; line-height: 1; color: var(--accent); }
+
+      .bubble {
+        align-self: flex-start; padding: 26px 34px; border-radius: 34px 34px 34px 8px;
+        background: var(--accent); color: var(--ground); font-size: 52px; font-weight: 900;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="23" data-width="1080" data-height="1920">
+      <div id="bg" class="clip" data-start="0" data-duration="23" data-track-index="0">
+        <div id="bg-disc"></div>
+      </div>
+
+      <!-- 1. Gancho (já na tela no quadro 0) -->
+      <div id="s1" class="clip scene" data-start="0" data-duration="3" data-track-index="1">
+        <div id="s1-a" class="big">Fazer <span class="acc">de tudo</span> é o jeito mais elegante</div>
+        <div id="s1-b" class="big">de não fazer <span class="acc">nada.</span></div>
+        <span id="s1-mark"></span>
+      </div>
+
+      <!-- 2. A lista -->
+      <div id="s2" class="clip scene" data-start="3" data-duration="4.2" data-track-index="1">
+        <div id="s2-t" class="small">Sua semana</div>
+        <div id="s2-i1" class="item"><span class="box"></span>Academia</div>
+        <div id="s2-i2" class="item"><span class="box"></span>Curso</div>
+        <div id="s2-i3" class="item"><span class="box"></span>Livro</div>
+        <div id="s2-i4" class="item"><span class="box"></span>Podcast</div>
+        <div id="s2-i5" class="item"><span class="box"></span>Planner</div>
+        <div id="s2-i6" class="item"><span class="box"></span>Jejum</div>
+      </div>
+
+      <!-- 3. Tudo começado, nada terminado -->
+      <div id="s3" class="clip scene" data-start="7.2" data-duration="2.6" data-track-index="1">
+        <div id="s3-a" class="big">Tudo começado.</div>
+        <div id="s3-b" class="big acc">Nada terminado.</div>
+        <div class="bars">
+          <div class="bar"><div id="s3-f1" class="bar-fill"></div></div>
+          <div class="bar"><div id="s3-f2" class="bar-fill"></div></div>
+          <div class="bar"><div id="s3-f3" class="bar-fill"></div></div>
+          <div class="bar"><div id="s3-f4" class="bar-fill"></div></div>
+        </div>
+      </div>
+
+      <!-- 4. Cardápio -->
+      <div id="s4" class="clip scene" data-start="9.8" data-duration="2.8" data-track-index="1">
+        <div id="s4-a" class="mid">Isso não é rotina.</div>
+        <div id="s4-b" class="big acc">É cardápio.</div>
+      </div>
+
+      <!-- 5. Uma coisa, 90 dias -->
+      <div id="s5" class="clip scene" data-start="12.6" data-duration="4.2" data-track-index="1">
+        <div id="s5-a" class="big">Escolha <span class="acc">UMA</span> coisa.</div>
+        <div id="s5-count">1</div>
+        <div id="s5-b" class="mid">dias. Sem trocar.</div>
+      </div>
+
+      <!-- 6. Chato? Funciona? -->
+      <div id="s6" class="clip scene" data-start="16.8" data-duration="3" data-track-index="1">
+        <div id="s6-a" class="big">Chato?</div>
+        <div id="s6-b" class="big acc">É.</div>
+        <div id="s6-c" class="big">Funciona?</div>
+        <div id="s6-d" class="big acc">Também.</div>
+      </div>
+
+      <!-- 7. Chamada -->
+      <div id="s7" class="clip scene" data-start="19.8" data-duration="3.2" data-track-index="1">
+        <div id="s7-a" class="mid">Comenta qual é a</div>
+        <div id="s7-b" class="big"><span class="acc">SUA</span> uma coisa.</div>
+        <div id="s7-c" class="bubble">Ex.: academia 💪</div>
+      </div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const pop = { duration: 0.35, ease: "power3.out" };
+
+      // Fundo: movimento contínuo do início ao fim.
+      tl.fromTo("#bg-disc", { x: -60, y: -40, scale: 0.9 }, { x: 60, y: 120, scale: 1.15, duration: 23, ease: "sine.inOut" }, 0);
+
+      // 1. Gancho visível no quadro 0, com movimento já no primeiro segundo.
+      tl.fromTo("#s1-a", { scale: 0.96, opacity: 0.9 }, { scale: 1, opacity: 1, duration: 0.6, ease: "power3.out", transformOrigin: "left center" }, 0);
+      tl.fromTo("#s1-b", { x: -16 }, { x: 0, duration: 0.6, ease: "power3.out" }, 0);
+      tl.fromTo("#s1-mark", { scaleX: 0.3 }, { scaleX: 1, duration: 1.6, ease: "power2.inOut" }, 0.2);
+
+      // 2. Lista empilhando.
+      tl.fromTo("#s2-t", { opacity: 0, y: 20 }, { opacity: 1, y: 0, ...pop }, 3.0);
+      ["#s2-i1", "#s2-i2", "#s2-i3", "#s2-i4", "#s2-i5", "#s2-i6"].forEach((id, i) => {
+        tl.fromTo(id, { opacity: 0, x: -50 }, { opacity: 1, x: 0, ...pop }, 3.15 + i * 0.45);
+      });
+
+      // 3. Barras paradas no começo.
+      tl.fromTo("#s3-a", { opacity: 0, y: 30 }, { opacity: 1, y: 0, ...pop }, 7.2);
+      tl.fromTo("#s3-b", { opacity: 0, y: 30 }, { opacity: 1, y: 0, ...pop }, 8.0);
+      [["#s3-f1", 0.18], ["#s3-f2", 0.3], ["#s3-f3", 0.12], ["#s3-f4", 0.24]].forEach(([id, v], i) => {
+        tl.fromTo(id, { scaleX: 0 }, { scaleX: v, duration: 0.8, ease: "power2.out" }, 7.3 + i * 0.12);
+      });
+
+      // 4. Cardápio.
+      tl.fromTo("#s4-a", { opacity: 0, y: 30 }, { opacity: 1, y: 0, ...pop }, 9.8);
+      tl.fromTo("#s4-b", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)", transformOrigin: "left center" }, 10.7);
+
+      // 5. Contador 1 → 90.
+      tl.fromTo("#s5-a", { opacity: 0, y: 30 }, { opacity: 1, y: 0, ...pop }, 12.6);
+      const counter = { v: 1 };
+      const countEl = document.getElementById("s5-count");
+      tl.fromTo(counter, { v: 1 }, {
+        v: 90, duration: 2.2, ease: "power2.inOut",
+        onUpdate: () => { countEl.textContent = Math.round(counter.v); },
+      }, 13.2);
+      tl.fromTo("#s5-count", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 13.1);
+      tl.fromTo("#s5-b", { opacity: 0, y: 30 }, { opacity: 1, y: 0, ...pop }, 15.5);
+
+      // 6. Chato? É. Funciona? Também.
+      ["#s6-a", "#s6-b", "#s6-c", "#s6-d"].forEach((id, i) => {
+        tl.fromTo(id, { opacity: 0, x: -40 }, { opacity: 1, x: 0, ...pop }, 16.85 + i * 0.6);
+      });
+
+      // 7. Chamada.
+      tl.fromTo("#s7-a", { opacity: 0, y: 30 }, { opacity: 1, y: 0, ...pop }, 19.8);
+      tl.fromTo("#s7-b", { opacity: 0, y: 30 }, { opacity: 1, y: 0, ...pop }, 20.2);
+      tl.fromTo("#s7-c", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)", transformOrigin: "left bottom" }, 20.9);
+      tl.fromTo("#s7-c", { y: 0 }, { y: -14, duration: 1.4, ease: "sine.inOut" }, 21.4);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
