@@ -1,0 +1,12 @@
+{
+  "quando": "2026-11-26T19:00:00-03:00",
+  "video": "reels/teste-passo-1/video-teste.mp4",
+  "capa": "reels/teste-passo-1/capa.jpg",
+  "legenda": "reels/teste-passo-1/legenda.txt",
+  "gancho": "Vídeo teste",
+  "teste": true,
+  "aprovado": false,
+  "status": "pronto",
+  "link_publicado": null,
+  "metricas_recebidas_em": null
+}
